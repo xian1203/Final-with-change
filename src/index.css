@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 25% 98%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 262 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 262 83.3% 57.8%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 262 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 262 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: #DFFFE2; /* Light green from the provided image */
+    color: #18392B; /* Dark green for text */
+    background-image: radial-gradient(at 27% 37%, rgba(10, 92, 54, 0.1) 0px, transparent 50%),
+                      radial-gradient(at 97% 21%, rgba(20, 69, 47, 0.1) 0px, transparent 50%),
+                      radial-gradient(at 52% 99%, rgba(24, 57, 43, 0.1) 0px, transparent 50%);
+  }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl;
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-br from-card to-secondary/80 backdrop-blur-sm;
+  }
+
+  .dark input {
+    @apply bg-card border-border;
+  }
+
+  .dark button:not([class*="bg-"]) {
+    @apply bg-secondary text-secondary-foreground;
+  }
+}
+
+button {
+  font-weight: bold;
+  border-radius: 8px;
+  background-color: #14452F; /* British racing green */
+  color: #FFFFFF; /* White text */
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0F5132; /* Darker castleton green */
+}
+
+input {
+  background-color: #18392B; /* Dark green */
+  color: #FFFFFF; /* White text */
+  border: 1px solid #14452F; /* British racing green */
+}
+
+.card {
+  background-color: #1D2E28; /* Gunmetal */
+  color: #FFFFFF; /* White text */
+}
+
+.hover-scale {
+  @apply transition-transform duration-200 hover:scale-105;
+}
+
+.fade-in {
+  /* Removed @apply animate-fade-in */
+}
+
+.navbar {
+  background-color: #14452F; /* British racing green for navbar */
+  color: #FFFFFF; /* White text */
+}
+
+.navbar a {
+  color: #FFFFFF; /* White text for links */
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #E6F4EA; /* Light green on hover */
+}
+
+@layer utilities {
+  .text-secondary-foreground {
+    color: #FFFFFF; /* White text */
+  }
+
+  .border-border {
+    border-color: theme('colors.border');
+  }
+
+  .bg-card {
+    background-color: theme('colors.card');
+  }
+
+  .text-card-foreground {
+    color: theme('colors.card-foreground');
+  }
+
+  .bg-secondary {
+    background-color: theme('colors.secondary');
+  }
+}
+
+/* Custom styles */
+.custom-class {
+  @apply text-center text-lg font-bold;
+}

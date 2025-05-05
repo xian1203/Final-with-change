@@ -1,0 +1,86 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
+
+interface GCashModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+  amount: number;
+}
+
+const GCashModal = ({ isOpen, onClose, onSuccess, amount }: GCashModalProps) => {
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (file) {
+      console.log("Payment proof submitted:", file);
+      toast.success("Payment submitted successfully!");
+      onSuccess();
+    } else {
+      toast.error("Please upload proof of payment");
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md z-[100]">
+        <DialogHeader>
+          <DialogTitle>GCash Payment</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-6">
+          <div className="text-center">
+            <p className="text-lg font-medium mb-2">Amount to Pay:</p>
+            <p className="text-2xl font-bold text-blue-600">₱{amount}</p>
+          </div>
+          
+          <div className="flex flex-col items-center space-y-4">
+            <div className="bg-[#0066FF]/10 p-6 rounded-xl shadow-sm w-[300px] h-[300px] flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/39618c4c-12d1-4319-a1ae-e06f4e93c320.png"
+                alt="GCash QR Code" 
+                className="w-full h-auto object-contain bg-white p-4 rounded-lg"
+              />
+            </div>
+            <div className="text-center space-y-2">
+              <p className="text-sm text-gray-600">Transfer fees may apply.</p>
+              <p className="font-medium">RO**R J** T.</p>
+              <p className="text-sm text-gray-600">Mobile No.: 099• ••••321</p>
+              <p className="text-sm text-gray-600">User ID: ••••••••••18RM3U</p>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              Please upload a screenshot of your payment confirmation
+            </label>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="cursor-pointer"
+            />
+          </div>
+
+          <Button
+            onClick={handleSubmit}
+            disabled={!file}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            Submit Payment
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default GCashModal;
