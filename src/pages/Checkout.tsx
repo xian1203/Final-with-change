@@ -9,7 +9,19 @@ import { ref, push, serverTimestamp } from "firebase/database";
 import { useAuth } from "@/context/AuthContext";
 import PayPalButton from "@/components/PayPalButton";
 import GCashButton from "@/components/GCashButton";
+import CashPaymentButton from "@/components/CashPaymentButton";
 import { ArrowLeft } from "lucide-react";
+import SuccessNotification from "../components/SuccessNotification"; // Relative path
+
+const Modal = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md text-center">
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const Checkout = () => {
   const { items, total, clearCart } = useCart();
@@ -23,7 +35,9 @@ const Checkout = () => {
     zipCode: "",
     country: "",
     description: "", // Add the description property
+    fullName: "", // Add the fullName property
   });
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false); // State for success notification
 
   const handleOrderSuccess = async () => {
     try {
@@ -39,12 +53,12 @@ const Checkout = () => {
         createdAt: serverTimestamp(),
         estimatedDeliveryDate: estimatedDeliveryDate.toISOString(),
         actualDeliveryDate: null,
-        paymentMethod: "PayPal",
+        paymentMethod: "Cash/GCash",
         paymentStatus: "completed"
       });
 
       clearCart();
-      navigate("/orders");
+      setShowSuccessNotification(true); // Show success notification
     } catch (error) {
       console.error("Error creating order:", error);
       toast.error("Failed to create order");
@@ -110,6 +124,18 @@ const Checkout = () => {
           
           <div className="space-y-4">
             <div>
+              <label htmlFor="fullName" className="block text-sm font-medium mb-1">
+                Full Name
+              </label>
+              <Input
+                id="fullName"
+                required
+                value={address.fullName || ""}
+                onChange={(e) => setAddress({ ...address, fullName: e.target.value })}
+                placeholder="Full Name"
+              />
+            </div>
+            <div>
               <label htmlFor="street" className="block text-sm font-medium mb-1">
                 Street Address
               </label>
@@ -132,6 +158,17 @@ const Checkout = () => {
                 placeholder="Additional details about the delivery"
               />
             </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium mb-1">
+                Email/Username
+              </label>
+              <Input
+                id="email"
+                value={user?.email || user?.uid || ""}
+                readOnly
+                className="bg-gray-100 cursor-not-allowed"
+              />
+            </div>
           </div>
 
           <div className="mt-6 space-y-6">
@@ -139,10 +176,20 @@ const Checkout = () => {
             <div className="space-y-4">
               <PayPalButton amount={total} onSuccess={handleOrderSuccess} />
               <GCashButton amount={total} onSuccess={handleOrderSuccess} />
+              <CashPaymentButton amount={total} onSuccess={handleOrderSuccess} />
             </div>
           </div>
         </div>
       </div>
+      {showSuccessNotification && (
+        <SuccessNotification
+          onViewStatus={() => {
+            setShowSuccessNotification(false);
+            navigate("/orders"); // Navigate to orders page
+          }}
+          onDismiss={() => setShowSuccessNotification(false)} // Dismiss notification
+        />
+      )}
     </div>
   );
 };

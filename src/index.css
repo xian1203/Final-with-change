@@ -72,8 +72,8 @@
   }
 
   body {
+    background-color: #FFFFFF; /* Set background color to white */
     min-height: 100vh;
-    background-color: #DFFFE2; /* Light green from the provided image */
     color: #18392B; /* Dark green for text */
     background-image: radial-gradient(at 27% 37%, rgba(10, 92, 54, 0.1) 0px, transparent 50%),
                       radial-gradient(at 97% 21%, rgba(20, 69, 47, 0.1) 0px, transparent 50%),

@@ -28,8 +28,8 @@ const Navbar = ({ onCartClick }: NavbarProps) => {
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center space-x-2">
             <img
-              src="/src/assets/logo.png" // Ensure this path matches the actual location of the logo
-              alt="Whispering Leaves Cafe Logo"
+              src="/assets/logo.png" // Ensure this path matches the actual location of the logo in the public folder
+              alt="Logo"
               className="h-8 w-8 object-contain"
             />
             <Link to="/" className="text-xl font-bold text-greenPalette.castleton hover:text-greenPalette.castletonDark transition-colors">

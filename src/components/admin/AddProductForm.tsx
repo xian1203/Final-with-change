@@ -16,7 +16,7 @@ interface Product {
 const AddProductForm = () => {
   const [newProduct, setNewProduct] = useState<Partial<Product>>({
     name: "",
-    price: 168, // Set default price to 168 for Samsung S24 Ultra
+    price: 0,
     image: "",
     rating: 5,
     discount: 0,
@@ -25,19 +25,17 @@ const AddProductForm = () => {
   const handleAddProduct = async () => {
     try {
       const productId = Date.now();
-      // Ensure price is stored as a number
       const price = Number(newProduct.price);
-      console.log('Adding product with price:', price);
-      
+
       await addProduct({
         ...newProduct,
         id: productId,
         price: price,
       });
-      
+
       setNewProduct({
         name: "",
-        price: 168,
+        price: 0,
         image: "",
         rating: 5,
         discount: 0,
@@ -50,55 +48,65 @@ const AddProductForm = () => {
   };
 
   return (
-    <div className="bg-card rounded-lg shadow p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4 text-card-foreground">Add New Product</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 text-center">
+        Add New Product
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="productName" className="block text-sm font-medium text-card-foreground mb-1">Product Name</label>
+          <label htmlFor="productName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Product Name
+          </label>
           <Input
             id="productName"
-            placeholder="Product Name"
+            placeholder="Enter product name"
             value={newProduct.name}
             onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-            className="bg-background text-foreground"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg"
           />
         </div>
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-card-foreground mb-1">Price (₱)</label>
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Price (₱)
+          </label>
           <Input
             id="price"
             type="number"
-            placeholder="Price (₱)"
+            placeholder="Enter price"
             value={newProduct.price}
             onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })}
-            className="bg-background text-foreground"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg"
           />
         </div>
         <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-card-foreground mb-1">Image URL</label>
+          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Image URL
+          </label>
           <Input
             id="imageUrl"
-            placeholder="Image URL"
+            placeholder="Enter image URL"
             value={newProduct.image}
             onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
-            className="bg-background text-foreground"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg"
           />
         </div>
         <div>
-          <label htmlFor="discount" className="block text-sm font-medium text-card-foreground mb-1">Discount (%)</label>
+          <label htmlFor="discount" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Discount (%)
+          </label>
           <Input
             id="discount"
             type="number"
-            placeholder="Discount (%)"
+            placeholder="Enter discount"
             value={newProduct.discount}
             onChange={(e) => setNewProduct({ ...newProduct, discount: Number(e.target.value) })}
-            className="bg-background text-foreground"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg"
           />
         </div>
       </div>
       <Button
         onClick={handleAddProduct}
-        className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
+        className="mt-6 w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-lg shadow-md transition-all duration-200"
       >
         Add Product
       </Button>
