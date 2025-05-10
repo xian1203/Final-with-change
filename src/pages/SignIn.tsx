@@ -33,7 +33,7 @@ const SignIn = () => {
         <CardHeader>
           <div className="flex justify-center mb-4">
             <img
-              src={`${process.env.PUBLIC_URL}/assets/logo.png`}
+              src="/assets/logo.png"
               alt="Logo"
               className="h-16 w-16 object-contain"
             />
