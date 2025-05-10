@@ -33,8 +33,8 @@ const GCashButton = ({ amount, onSuccess }: GCashButtonProps) => {
       >
         <div className="flex items-center justify-center w-full gap-4">
           <img 
-            src="/assets/gcash.png" // Ensure this path matches the actual location of the GCash logo
-            alt="GCash" 
+            src={`${process.env.PUBLIC_URL}/assets/gcash.png`}
+            alt="GCash QR Code"  
             className="h-8 w-auto object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
