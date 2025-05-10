@@ -47,12 +47,12 @@ const GCashModal = ({ isOpen, onClose, onSuccess, amount }: GCashModalProps) => 
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-sm w-[300px] h-[300px] flex items-center justify-center">
               <img 
-                src="src/assets/gcash.png" // Ensure the QR code image is in the public/assets directory
+                src={`${process.env.PUBLIC_URL}/assets/gcash.png`}
                 alt="GCash QR Code" 
                 className="w-full h-auto object-contain bg-white p-4 rounded-lg"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "https://via.placeholder.com/300?text=QR+Code+Not+Found"; // Fallback image
+                  target.src = "https://via.placeholder.com/300?text=QR+Code+Not+Found";
                 }}
               />
             </div>
