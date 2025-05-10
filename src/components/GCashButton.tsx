@@ -33,7 +33,7 @@ const GCashButton = ({ amount, onSuccess }: GCashButtonProps) => {
       >
         <div className="flex items-center justify-center w-full gap-4">
           <img 
-            src="assets/logo.png" // Ensure this path matches the actual location of the logo
+            src="assets/gcas.png" // Ensure this path matches the actual location of the logo
               alt="Gcash"  
             className="h-8 w-auto object-contain"
             onError={(e) => {
